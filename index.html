@@ -86,14 +86,10 @@
         }).catch((message) => {
           alert(message);
         });
-        window.addEventListener('beforeunload', () => {
-            // Send message to Unity game object and call a function (e.g., "OnAppClose")
-            unityInstance.SendMessage('GameObjectName', 'OnAppClose');
-          });
-        }).catch((message) => {
-          alert(message);
-        });
       };
+      window.addEventListener('beforeunload', () => {
+        unityInstance.SendMessage('GameObjectName', 'OnAppClose');
+    });
       document.body.appendChild(script);
     </script>
   </body>
