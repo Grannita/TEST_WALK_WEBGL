@@ -67,8 +67,9 @@
 
       const script = document.createElement("script");
       script.src = loaderUrl;
+      let unityInstance;
       script.onload = () => {
-        createUnityInstance(canvas, config, (progress) => {
+        unityInstance = createUnityInstance(canvas, config, (progress) => {
           spinner.style.display = "none";
           progressBarEmpty.style.display = "";
           progressBarFull.style.width = `${100 * progress}%`;
