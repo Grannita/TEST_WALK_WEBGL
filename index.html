@@ -82,16 +82,13 @@
               unityInstance.SetFullscreen(1);
             };
           }
-        window.addEventListener('beforeunload', () => {
-          const confirmationMessage = "Are you sure you want to leave?";
-          event.returnValue = confirmationMessage;
-          if (window.confirm(confirmationMessage)) {
-            unityInstance.SendMessage('GameObjectName', 'OnAppClose');
-          } else {
+          window.addEventListener('beforeunload', (event) => {
+            const confirmationMessage = "Are you sure you want to leave?";
+            event.returnValue = confirmationMessage;
             event.preventDefault();
-          }
-        });
-        }}).catch((message) => {
+            unityInstance.SendMessage('GameObjectName', 'OnAppClose');
+          });
+        }).catch((message) => {
           alert(message);
         });
       };
