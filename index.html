@@ -67,8 +67,9 @@
 
       const script = document.createElement("script");
       script.src = loaderUrl;
+      let unityInstance;
       script.onload = () => {
-        createUnityInstance(canvas, config, (progress) => {
+        unityInstance = createUnityInstance(canvas, config, (progress) => {
           spinner.style.display = "none";
           progressBarEmpty.style.display = "";
           progressBarFull.style.width = `${100 * progress}%`;
@@ -82,6 +83,13 @@
               unityInstance.SetFullscreen(1);
             };
           }
+        }).catch((message) => {
+          alert(message);
+        });
+        window.addEventListener('beforeunload', () => {
+            // Send message to Unity game object and call a function (e.g., "OnAppClose")
+            unityInstance.SendMessage('GameObjectName', 'OnAppClose');
+          });
         }).catch((message) => {
           alert(message);
         });
