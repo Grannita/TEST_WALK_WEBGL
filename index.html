@@ -83,10 +83,15 @@
             };
           }
           window.addEventListener('beforeunload', (event) => {
-            const confirmationMessage = "Are you sure you want to leave?";
-            event.returnValue = confirmationMessage;
-            event.preventDefault();
-            unityInstance.SendMessage('GameObjectName', 'OnAppClose');
+            if (!isLeaving) {
+              const confirmationMessage = "Are you sure you want to leave?";
+              const userConfirmed = window.confirm(confirmationMessage);
+              if (userConfirmed) {
+                unityInstance.SendMessage('GameObjectName', 'OnAppClose');
+              } else {
+                event.preventDefault();
+              }
+            }
           });
         }).catch((message) => {
           alert(message);
