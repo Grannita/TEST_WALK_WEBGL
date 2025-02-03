@@ -83,7 +83,6 @@
             };
           }
           window.addEventListener('beforeunload', (event) => {
-            if (!isLeaving) {
               const confirmationMessage = "Are you sure you want to leave?";
               const userConfirmed = window.confirm(confirmationMessage);
               if (userConfirmed) {
@@ -91,7 +90,6 @@
               } else {
                 event.preventDefault();
               }
-            }
           });
         }).catch((message) => {
           alert(message);
