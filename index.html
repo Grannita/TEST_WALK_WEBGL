@@ -88,9 +88,6 @@
           alert(message);
         });
       };
-      window.onbeforeunload = function(e) {
-          gameInstance.SendMessage("_MANAGER", "SendStatistics");
-      };
       document.body.appendChild(script);
     </script>
   </body>
