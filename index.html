@@ -23,6 +23,7 @@
     </div>
     <div id="unity-fullscreen-button" style="display: none;"></div>
     <script>
+      let instance;
       const hideFullScreenButton = "";
       const buildUrl = "Build";
       const loaderUrl = buildUrl + "/TEST_WALK_WEBGL.loader.js";
@@ -74,6 +75,7 @@
           progressBarFull.style.width = `${100 * progress}%`;
         }).then((unityInstance) => {
           loadingCover.style.display = "none";
+          instance = unityInstance;
           if (canFullscreen) {
             if (!hideFullScreenButton) {
               fullscreenButton.style.display = "";
@@ -87,6 +89,12 @@
         });
       };
       document.body.appendChild(script);
+      window.onbeforeunload = () => {
+        if (instance) {
+          instance.SendMessage("_MANAGER", "SendStatistics");
+        }
+        return "Are you sure you want to leave this page?";
+      };
     </script>
   </body>
 </html>
